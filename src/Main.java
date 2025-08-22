@@ -1,4 +1,10 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -43,12 +49,12 @@ public class Main {
           Создайте HashMap<String, Integer> с названиями предметов и оценками. Выведите все пары ключ-значение
         */
         System.out.println("Создание и вывод Map.");
-        HashMap<String, Integer> lessonGrades = new HashMap<>();
+        Map<String, Integer> lessonGrades = new HashMap<>();
         lessonGrades.put("Math", 5);
         lessonGrades.put("Physics", 4);
         lessonGrades.put("History", 5);
         lessonGrades.put("Russian Language", 3);
-        for (HashMap.Entry<String, Integer> grade : lessonGrades.entrySet()) {
+        for (Map.Entry<String, Integer> grade : lessonGrades.entrySet()) {
             System.out.println("Предмет: " + grade.getKey() + " балл " + grade.getValue());
         }
         /*
@@ -87,7 +93,7 @@ public class Main {
         Дан Map<String, Integer> (имя студента → балл). Верните имя студента с максимальным баллом
         */
         System.out.println("Рейтинг студентов.");
-        HashMap<String, Integer> students = new HashMap<>();
+        Map<String, Integer> students = new HashMap<>();
         students.put("Васян", 55);
         students.put("Петручо", 64);
         students.put("Джозефина", 75);
@@ -108,7 +114,7 @@ public class Main {
         synon.put("дорога", new HashSet<>(List.of("путь", "тропа", "трасса")));
         synon.put("дом", new HashSet<>(List.of("жилище", "дворец")));
         System.out.println(synon);
-        addSynonum(synon, "дом", "хата");
+        addSynonym(synon, "дом", "хата");
         System.out.println(synon);
     }
     /*
@@ -125,8 +131,8 @@ public class Main {
      * @return - истина если анаграммы, иначе нет
      */
     public static boolean anagramOrNot(String str1, String str2) {
-        Map<Character, Long> str1Map = str1.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        Map<Character, Long> str2Map = str2.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        Map<Character, Long> str1Map = (str1.toLowerCase()).chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        Map<Character, Long> str2Map = (str2.toLowerCase()).chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         if (str2Map.equals(str1Map)) {
             return true;
         }
@@ -158,7 +164,7 @@ public class Main {
      * @param word  - слово (ключ)
      * @param synon - синоним
      */
-    public static void addSynonum(Map<String, Set<String>> set, String word, String synon) {
+    public static void addSynonym(Map<String, Set<String>> set, String word, String synon) {
         Set<String> synSet = set.get(word);
         synSet.add(synon);
         set.put(word, synSet);
